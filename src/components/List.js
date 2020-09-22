@@ -10,7 +10,7 @@ export default (props) => {
         dataSource={props.data}
         renderItem={item => (
           <List.Item>
-            <Typography.Text>{item}</Typography.Text> 
+            <Typography.Text>{item.name}</Typography.Text> 
             <EditOutlined
               onClick={() => props.editName(item)}
             />
