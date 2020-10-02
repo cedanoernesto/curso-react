@@ -5,22 +5,22 @@ import Modal from './Modal';
 
 export default () => {
     const [visible, setVisible] = useState(false);
-    const [userSelected, setUserSelected] = useState({});
+    const [periodSelected, setPeriodSelected] = useState({});
 
     const toggleVisible = () => {
         setVisible(!visible);
     }
-    const selectUser = (user) => {
-        setUserSelected(user);
+    const selectPeriod = (period) => {
+        setPeriodSelected(period);
         toggleVisible();
     }
     return (
         <div>
-            <Modal visible={visible} toggleVisible={toggleVisible} user={userSelected} />
+            <Modal visible={visible} toggleVisible={toggleVisible} period={periodSelected} />
             <Row align="end">
-                <Button type="primary" style={styles.Button} onClick={() => selectUser({})}>Create new</Button>
+                <Button type="primary" style={styles.Button} onClick={() => selectPeriod({})}>Create new</Button>
             </Row>
-            <Table selectUser={selectUser} />
+            <Table selectPeriod={selectPeriod} />
         </div>
     )
 }
