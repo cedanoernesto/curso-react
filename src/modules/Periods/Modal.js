@@ -11,14 +11,26 @@ export default ({ visible, period, toggleVisible }) => {
     const [endDate, setEndDate] = useState('');
     const [form] = Form.useForm();
     const [valPeriod, setValPeriod] = useState('');
+    const [opciones, setOpciones] = useState(['']);
     const [valNewPeriod, setValNewPeriod] = useState(false);
+    const [opcionDefault, setOpcionDefault] = useState('');
 
     if (period.id !== valPeriod) {
-        form.setFieldsValue({ ...period, start: moment(period.start), end: moment(period.end), school: period.school });
+        Axios.get(`${env.localhost}schools`).then((response) => {
+            if (response.data) {
+                const data = Array.from(response.data)
+                setOpciones(data);
+
+            }
+        })
+
+        form.setFieldsValue({ ...period, start: moment(period.start), end: moment(period.end) });
         setStartDate(moment(period.start).format("YYYY-MM-DD"));
         setEndDate(moment(period.end).format("YYYY-MM-DD"));
         setValPeriod(period.id);
         setValNewPeriod(false);
+        setOpcionDefault(toString(period.school));
+
 
     } else if (!period.id && valNewPeriod === false) {
         form.setFieldsValue({
@@ -67,6 +79,7 @@ export default ({ visible, period, toggleVisible }) => {
 
 
 
+
     return (
         <Modal
             title="Period"
@@ -100,14 +113,17 @@ export default ({ visible, period, toggleVisible }) => {
                 <Form.Item name="school" label="School">
                     <Select
                         showSearch
-                        style={{ width: 200 }}
+                        style={{ width: 300 }}
                         placeholder="Select a school"
                         optionFilterProp="children"
                         onChange={onChangeSchool}
+                        value={opcionDefault}
+
                     >
-                        <Option value="ICO">Ico</Option>
-                        <Option value="Upsin">Upsin</Option>
-                        <Option value="Anglo">Anglo</Option>
+                        {opciones.map((opcion) => (
+                            <option key={opcion.id} value={opcion.name}>{opcion.name} </option>
+                        ))}
+
                     </Select>,
                 </Form.Item>
 

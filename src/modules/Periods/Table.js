@@ -33,11 +33,11 @@ export default ({ selectPeriod }) => {
             key: 'text',
             dataIndex: 'text',
         },
-        {
+        /* {
             title: 'School',
             key: 'school',
-            dataIndex: 'school.value',
-        },
+            dataIndex: 'school',
+        }, */
 
         {
             title: 'Action',
